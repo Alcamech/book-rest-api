@@ -10,15 +10,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import com.mightyjava.domain.Book;
 
 @RepositoryRestResource(collectionResourceRel = "book", path = "book")
-public interface BookRepository extends JpaRepository<Book, UUID> {
 
-	Book findByTitle(@Param("title") String title);
-
-	Book findByAuthor(@Param("author") String author);
-
-	Book findByIsbnNumber(@Param("isbnNumber") Long isbnNumber);
-
-	List<Book> findByLanguage(@Param("language") String language);
-
-	Book findByPrice(@Param("price") Double price);
-}
+// define interface and methods

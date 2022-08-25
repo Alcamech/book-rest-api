@@ -39,48 +39,9 @@ public class BookResourceImpl implements Resource<Book> {
 	@Autowired
 	private IService<Book> bookService;
 
-	private final String imagePath = "./src/main/resources/qrcodes/QRCode.png";
-
-	@GetMapping("/generateByteQRCode/{bookId}")
-	public ResponseEntity<Book> generateByteQRCode(@PathVariable("bookId") UUID bookId) {
-		log.info("BookResourceImpl - generateByteQRCode");
-		Book bookObject = null;
-		Optional<Book> book = bookService.findById(bookId);
-		if (!book.isPresent()) {
-			throw new BookNotFoundException("Book not found");
-		} else {
-			bookObject = book.get();
-			bookObject.setBase64QRCode(MethodUtils.generateByteQRCode(bookObject.getCoverPhotoURL(), 250, 250));
-			bookObject.add(linkTo(methodOn(BookResourceImpl.class).findAll()).withSelfRel());
-		}
-		return new ResponseEntity<>(bookObject, HttpStatus.OK);
-	}
-
-	@GetMapping("/generateImageQRCode/{bookId}")
-	public ResponseEntity<Book> generateImageQRCode(@PathVariable("bookId") UUID bookId) {
-		log.info("BookResourceImpl - generateImageQRCode");
-		Book bookObject = null;
-		Optional<Book> book = bookService.findById(bookId);
-		if (!book.isPresent()) {
-			throw new BookNotFoundException("Book not found");
-		} else {
-			bookObject = book.get();
-			MethodUtils.generateImageQRCode(bookObject.getCoverPhotoURL(), 250, 250, imagePath);
-			bookObject.add(linkTo(methodOn(BookResourceImpl.class).findAll()).withSelfRel());
-		}
-		return new ResponseEntity<>(bookObject, HttpStatus.OK);
-	}
-
 	@Override
 	public ResponseEntity<Collection<Book>> findAll() {
-		log.info("BookResourceImpl - findAll");
-		Collection<Book> books = bookService.findAll();
-		List<Book> response = new ArrayList<>();
-		books.forEach(book -> {
-			book.add(linkTo(methodOn(BookResourceImpl.class).findById(book.getId())).withSelfRel());
-			response.add(book);
-		});
-		return new ResponseEntity<>(response, HttpStatus.OK);
+		// fill out find all
 	}
 
 	@Override

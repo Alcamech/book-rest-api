@@ -25,10 +25,8 @@ public class BookServiceImpl implements IService<Book> {
 		return bookRepository.findAll();
 	}
 
-	@Override
-	public Optional<Book> findById(UUID id) {
-		return bookRepository.findById(id);
-	}
+
+	// define findById
 
 	@Override
 	public Book saveOrUpdate(Book book) {
@@ -47,9 +45,6 @@ public class BookServiceImpl implements IService<Book> {
 		return jsonObject.toString();
 	}
 
-	@Override
-	public List<Book> saveAll(List<Book> books) {
-		return bookRepository.saveAll(books);
-	}
+	// Define saveAll
 
 }
